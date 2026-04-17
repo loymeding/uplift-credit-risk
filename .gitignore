@@ -1,0 +1,32 @@
+# Claude Code
+CLAUDE.md
+.claude/
+
+# Большие файлы данных (скачать с Kaggle)
+data/raw/
+
+# Данные, генерируемые ноутбуками
+data/processed/
+
+# Обученные модели
+models/
+
+# Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Временные файлы Word
+~$*.docx
