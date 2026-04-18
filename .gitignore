@@ -11,6 +11,9 @@ data/processed/
 # Обученные модели
 models/
 
+# текст работы
+docs/Текст магистерской.docx
+
 # Jupyter
 .ipynb_checkpoints/
 **/.ipynb_checkpoints/

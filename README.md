@@ -41,10 +41,10 @@
 │   └── logreg/        # Обученная модель логистической регрессии
 ├── features/          # Excel-файлы с важностью признаков
 ├── docs/              # Текст магистерской диссертации
-├── Magic_prepare_dataset.ipynb      # 1. Подготовка данных и генерация uplift-слоя
-├── Magic_analytic_dataset_ipynb_.ipynb  # 2. Анализ и валидация датасета
-├── Magic_cboost.ipynb               # 3. Модель CatBoost
-└── Magic_logreg.ipynb               # 4. Модель логистической регрессии
+├── prepare_dataset.ipynb            # 1. Подготовка данных и генерация uplift-слоя
+├── analytic_dataset_ipynb_.ipynb    # 2. Анализ и валидация датасета
+├── cboost.ipynb                     # 3. Модель CatBoost
+└── logreg.ipynb                     # 4. Модель логистической регрессии
 ```
 
 ## Порядок запуска
@@ -58,10 +58,10 @@ pip install pandas==2.2.2 numpy==2.0.2 catboost==1.2.10 lightgbm optuna==4.8.0 \
 jupyter lab
 ```
 
-1. `Magic_prepare_dataset.ipynb` — обработка данных, генерация синтетического uplift-слоя, отбор 22 признаков → сохраняет `data/processed/uplift-dataset.csv`
-2. `Magic_analytic_dataset_ipynb_.ipynb` — разведочный анализ, валидация каузальной структуры
-3. `Magic_cboost.ipynb` — обучение CatBoost, Optuna-тюнинг (50 trials), SHAP-анализ
-4. `Magic_logreg.ipynb` — логистическая регрессия с WoE-кодированием, Optuna-тюнинг (20 trials)
+1. `prepare_dataset.ipynb` — обработка данных, генерация синтетического uplift-слоя, отбор 22 признаков → сохраняет `data/processed/uplift-dataset.csv`
+2. `analytic_dataset_ipynb_.ipynb` — разведочный анализ, валидация каузальной структуры
+3. `cboost.ipynb` — обучение CatBoost, Optuna-тюнинг (50 trials), SHAP-анализ
+4. `logreg.ipynb` — логистическая регрессия с WoE-кодированием, Optuna-тюнинг (20 trials)
 
 > **Важно:** исходные CSV из Kaggle нужно положить в `data/raw/` перед запуском первого ноутбука.
 
