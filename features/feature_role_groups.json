@@ -1,0 +1,58 @@
+{
+  "safe_raw_feature_note": "All original Home Credit columns except IDs, targets and generated causal/oracle columns.",
+  "synthetic_context_cols": [
+    "BASE_PD",
+    "CONTACT_PROPENSITY",
+    "RISK_SEGMENT",
+    "CONTACT_HISTORY",
+    "PREFERRED_CHANNEL",
+    "INTERACTION_SCORE",
+    "DELAY_FLAG"
+  ],
+  "treatment_cols": [
+    "COMMUNICATION"
+  ],
+  "observed_outcome_cols": [
+    "PD_AFTER_CONTACT",
+    "TARGET_AFTER_CONTACT"
+  ],
+  "potential_outcome_cols": [
+    "PD_NO_CONTACT",
+    "PD_SMS",
+    "PD_ROBOT_CALL",
+    "PD_OPERATOR_CALL",
+    "UPLIFT_SMS",
+    "UPLIFT_ROBOT_CALL",
+    "UPLIFT_OPERATOR_CALL"
+  ],
+  "oracle_cols": [
+    "TRUE_UPLIFT",
+    "ORACLE_COMMUNICATION",
+    "ORACLE_TRUE_UPLIFT",
+    "ORACLE_PD_AFTER_CONTACT"
+  ],
+  "leakage_cols_for_modeling": [
+    "BASE_PD",
+    "COMMUNICATION",
+    "CONTACT_HISTORY",
+    "CONTACT_PROPENSITY",
+    "DELAY_FLAG",
+    "INTERACTION_SCORE",
+    "ORACLE_COMMUNICATION",
+    "ORACLE_PD_AFTER_CONTACT",
+    "ORACLE_TRUE_UPLIFT",
+    "PD_AFTER_CONTACT",
+    "PD_NO_CONTACT",
+    "PD_OPERATOR_CALL",
+    "PD_ROBOT_CALL",
+    "PD_SMS",
+    "PREFERRED_CHANNEL",
+    "RISK_SEGMENT",
+    "TARGET",
+    "TARGET_AFTER_CONTACT",
+    "TRUE_UPLIFT",
+    "UPLIFT_OPERATOR_CALL",
+    "UPLIFT_ROBOT_CALL",
+    "UPLIFT_SMS"
+  ]
+}
