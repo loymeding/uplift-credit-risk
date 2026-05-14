@@ -24,6 +24,7 @@ models/
 
 # Thesis text draft
 docs/Текст магистерской.docx
+docs/*.before_structured_rewrite_*.docx
 
 # Jupyter
 .ipynb_checkpoints/
