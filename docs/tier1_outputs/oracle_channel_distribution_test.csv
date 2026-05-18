@@ -1,9 +1,0 @@
-﻿policy,channel,pct_test
-current_logged_policy,control,90.24584566355566
-current_logged_policy,operator_call,5.5559168807518455
-current_logged_policy,robot_call,2.481220122922832
-current_logged_policy,sms,1.7170173327696663
-counterfactual_channel_oracle,robot_call,38.49468309973659
-counterfactual_channel_oracle,operator_call,38.19713180059185
-counterfactual_channel_oracle,sms,21.194432701375565
-counterfactual_channel_oracle,control,2.1137523982959903

@@ -10,6 +10,8 @@ _style_*.py
 _tier*_patch.py
 nb_cells_part1.json
 
+docs/*
+
 # CatBoost service outputs
 catboost_info/
 
