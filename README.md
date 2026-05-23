@@ -80,32 +80,29 @@ PD_after = BASE_PD + TRUE_UPLIFT
 │   └── processed/          # uplift-dataset.csv, генерируется первым ноутбуком
 ├── docs/                   # текст диссертации
 ├── features/               # отчеты по признакам и leakage-разметка
-├── formatted_notebooks/    # оформленные версии ноутбуков для чтения и защиты
 ├── models/                 # обученные модели, генерируются ноутбуками
-├── prepare_dataset.ipynb
-├── analytic_dataset.ipynb
-├── gradient_boosting.ipynb
-├── logistic_regression.ipynb
-├── uplift_models.ipynb
-├── policy_evaluation.ipynb
+├── 01_prepare_dataset.ipynb
+├── 02_analytic_dataset.ipynb
+├── 03_gradient_boosting.ipynb
+├── 04_logistic_regression.ipynb
+├── 05_uplift_models.ipynb
+├── 06_policy_evaluation.ipynb
 ├── requirements.txt
 └── README.md
 ```
 
 ## Ноутбуки
 
-Ноутбуки запускаются из корня репозитория в таком порядке:
+Ноутбуки лежат в корне репозитория, пронумерованы по порядку запуска и оформлены как читаемый методический текст: с оглавлениями, поясняющими блоками, выводами и сохраненными outputs.
 
-| Шаг | Исходный ноутбук | Оформленная версия | Роль |
-|---:|---|---|---|
-| 1 | `prepare_dataset.ipynb` | `formatted_notebooks/01_prepare_dataset.ipynb` | сбор Home Credit, агрегации, генерация синтетического uplift-слоя |
-| 2 | `analytic_dataset.ipynb` | `formatted_notebooks/02_analytic_dataset.ipynb` | аудит причинной структуры, selection bias, leakage, oracle-полей |
-| 3 | `gradient_boosting.ipynb` | `formatted_notebooks/03_gradient_boosting.ipynb` | CatBoost baseline, feature selection, SHAP, learning curve |
-| 4 | `logistic_regression.ipynb` | `formatted_notebooks/04_logistic_regression.ipynb` | Logistic Regression + WoE baseline |
-| 5 | `uplift_models.ipynb` | `formatted_notebooks/05_uplift_models.ipynb` | S/T/X/DR-Learner, AUUC, bootstrap, сценарии риска и эффекта |
-| 6 | `policy_evaluation.ipynb` | `formatted_notebooks/06_policy_evaluation.ipynb` | бизнес-оценка политик: бюджет, ROI, выбор канала, сегменты клиентов |
-
-Оформленные ноутбуки содержат те же code-ячейки и сохраненные outputs, но дополнены оглавлениями, поясняющими блоками, выводами и пометками о слишком тяжелых выводах. Их удобно читать последовательно как методический текст.
+| Шаг | Ноутбук | Роль |
+|---:|---|---|
+| 1 | `01_prepare_dataset.ipynb` | сбор Home Credit, агрегации, генерация синтетического uplift-слоя |
+| 2 | `02_analytic_dataset.ipynb` | аудит причинной структуры, selection bias, leakage, oracle-полей |
+| 3 | `03_gradient_boosting.ipynb` | CatBoost baseline, feature selection, SHAP, learning curve |
+| 4 | `04_logistic_regression.ipynb` | Logistic Regression + WoE baseline |
+| 5 | `05_uplift_models.ipynb` | S/T/X/DR-Learner, AUUC, bootstrap, сценарии риска и эффекта |
+| 6 | `06_policy_evaluation.ipynb` | бизнес-оценка политик: бюджет, ROI, выбор канала, сегменты клиентов |
 
 ## Установка и запуск
 
@@ -203,7 +200,7 @@ Gini = 2 * AUC - 1
 
 ### Бизнес-метрики
 
-В `policy_evaluation.ipynb` AUUC переводится в бизнес-язык: предотвращенная вероятность дефолта, экономический эффект, затраты, ROI и доля от oracle.
+В `06_policy_evaluation.ipynb` AUUC переводится в бизнес-язык: предотвращенная вероятность дефолта, экономический эффект, затраты, ROI и доля от oracle. В этом блоке uplift-политики сравниваются не только с синтетическим ориентиром `BASE_PD`, но и с реалистичными risk-baseline моделями CatBoost и Logistic Regression.
 
 Сценарные параметры:
 
@@ -220,19 +217,21 @@ Gini = 2 * AUC - 1
 |---|---:|---:|---:|---:|
 | Случайный выбор | 29.0241 | 6.9658 | 6.0790 | 19.2 |
 | Risk-based `BASE_PD` | 106.2274 | 25.4946 | 24.9091 | 70.2 |
+| CatBoost risk, все признаки | 73.5230 | 17.6455 | 16.9300 | 48.6 |
+| LogReg risk, все признаки | 73.4320 | 17.6237 | 16.9100 | 48.5 |
 | S-Learner | 98.5138 | 23.6433 | 23.0278 | 65.1 |
 | T-Learner | 101.6121 | 24.3869 | 23.7834 | 67.2 |
-| X-Learner | 42.2132 | 10.1312 | 9.2959 | 27.9 |
-| DR-Learner | 45.7842 | 10.9882 | 10.1669 | 30.3 |
 | Oracle | 151.2560 | 36.3014 | 35.8917 | 100.0 |
 
 Bootstrap 95% CI снижения PD при охвате 20%:
 
 | Стратегия | Среднее | CI 2.5% | CI 97.5% |
 |---|---:|---:|---:|
-| Risk-based `BASE_PD` | 106.3294 | 101.6284 | 110.7503 |
+| CatBoost risk, все признаки | 73.6374 | 70.1029 | 77.5739 |
+| LogReg risk, все признаки | 73.5779 | 69.8884 | 77.3014 |
 | S-Learner | 98.6157 | 94.1737 | 103.0109 |
 | T-Learner | 101.7086 | 97.1360 | 106.2540 |
+| Risk-based `BASE_PD` | 106.3294 | 101.6284 | 110.7503 |
 | Oracle | 151.3812 | 146.6740 | 156.5722 |
 
 Multi-treatment policy показала важное ограничение: S-Learner почти всегда выбирает `robot_call` (99.0%), T-Learner почти всегда выбирает `sms` (97.5%), тогда как oracle распределяет каналы разнообразнее: `robot_call` 38.5%, `operator_call` 38.2%, `sms` 21.2%, `control` 2.1%. Это означает, что ранжировать клиентов проще, чем надежно выбирать лучший канал.
@@ -240,10 +239,10 @@ Multi-treatment policy показала важное ограничение: S-L
 ## Основные выводы
 
 1. Синтетический стенд содержит нужные причинные свойства: неслучайное назначение контакта, слабый и неоднородный эффект, potential outcomes и oracle-поля.
-2. Risk-based стратегии сильны, потому что в текущем стенде риск частично связан с полезностью коммуникации. Поэтому `BASE_PD` может имитировать uplift.
-3. T-Learner и S-Learner устойчиво превосходят практические risk-модели по AUUC, но не достигают oracle.
+2. Risk-based стратегии сильны, потому что в текущем стенде риск частично связан с полезностью коммуникации. Поэтому `BASE_PD` выступает как сильный, но частично синтетический ориентир и может имитировать uplift.
+3. Реалистичные risk-baseline модели CatBoost и Logistic Regression заметно слабее `BASE_PD`: они прогнозируют риск, но не восстанавливают идеальный базовый риск напрямую. На их фоне S-Learner и T-Learner дают более убедимый экономический и AUUC-выигрыш.
 4. X-Learner и DR-Learner не дали преимущества в текущей постановке, что подчеркивает роль overlap, качества propensity-модели и силы сигнала.
-5. Бизнес-оценка показывает, что uplift-модель нужно оценивать не только по AUUC, но и по бюджету, ROI, стоимости каналов и устойчивости результата.
+5. Бизнес-оценка показывает, что uplift-модель нужно оценивать не только по AUUC, но и по бюджету, ROI, стоимости каналов, сценариям связи риска и эффекта и устойчивости результата.
 6. Multi-treatment выбор канала остается самой сложной частью: для него нужны данные по альтернативным воздействиям и controlled exploration.
 
 ## Ограничения
